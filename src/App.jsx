@@ -1,19 +1,13 @@
-import { useState } from 'react'
-import { Input } from './components/Input'
-import { Label } from './components/Label'
-import { SubmitDemo } from './components/SubmitForm'
-import { Toaster } from 'react-hot-toast'
+import Main from "./Pages/Main";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
-
+  const router = createBrowserRouter([{ path: "/", element: <Main /> }]);
   return (
     <>
-    <Toaster/>
-    <div className='flex items-center justify-center h-screen'>
-      <SubmitDemo/>
-    </div>
+      <RouterProvider router={router} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
