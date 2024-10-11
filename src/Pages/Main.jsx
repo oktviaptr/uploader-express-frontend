@@ -10,7 +10,7 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000")
+      .get("https://drive-express-uploader-backend.vercel.app/")
       .then((response) => {
         console.log(response.data);
         setError(false);
