@@ -3,6 +3,8 @@ import { Label } from "./Label";
 import { Input } from "./Input";
 import { cn } from "../utils/motion";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
+import { fadeIn, textVariant } from "../utils/frameranimation";
 
 export function SubmitDemo() {
   const handleSubmit = (e) => {
@@ -58,7 +60,12 @@ export function SubmitDemo() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-md bg-white p-4 shadow-input dark:bg-black sm:rounded-lg md:rounded-2xl md:p-8">
+    <motion.div
+      initial="hidden"
+      animate="show"
+      variants={fadeIn("up", "spring", 0.4, 0.95)}
+      className="mx-auto w-full max-w-md bg-white p-4 shadow-input dark:bg-black sm:rounded-lg md:rounded-2xl md:p-8"
+    >
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
         Ryan's Drive Uploader Express
       </h2>
@@ -76,7 +83,9 @@ export function SubmitDemo() {
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="password">File <span className="text-red-600"> *</span></Label>
+          <Label htmlFor="password">
+            File <span className="text-red-600"> *</span>
+          </Label>
           <Input
             placeholder="File goes here"
             type="file"
@@ -96,7 +105,7 @@ export function SubmitDemo() {
 
         <div className="my-2 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
       </form>
-    </div>
+    </motion.div>
   );
 }
 
