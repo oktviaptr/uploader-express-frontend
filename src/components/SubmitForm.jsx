@@ -10,49 +10,51 @@ export function SubmitDemo() {
 
     const form = document.getElementById("form-submit");
     const filename = form.filename.value.trim();
-    const file = form.file.files[0]; // Retrieve the uploaded file
+    const files = form.file.files; // Retrieve the uploaded files (can be multiples)
 
-    if (!file) {
-      toast.error("Make sure to select file");
-      return;
-    }
-
-    if (!filename) {
-      toast.error("Make sure to fill in input");
+    if (!files.length) {
+      toast.error("Make sure to check your input");
       return;
     }
 
     const url =
       "https://script.google.com/macros/s/AKfycby_dDBZAlviHnr4ATbL7qrqdLZG94tHL0RTQyTMYcGa6axV53nL-M5cAbMyHGDl9DAx/exec";
 
-    const qs = new URLSearchParams({
-      filename: form.filename.value || file.name, // Filename from input or the file name
-      mimeType: file.type, // File MIME type
-    });
+    // Loop through each file and upload them individually
+    Array.from(files).forEach((file) => {
+      let PostedName = filename !== "" ? filename : file.name;
 
-    const reader = new FileReader();
+      const qs = new URLSearchParams({
+        filename: PostedName, // Filename from input or the file name
+        mimeType: file.type, // File MIME type
+      });
 
-    reader.onload = (f) => {
-      fetch(
-        `${url}?${qs}`,
-        {
+      const reader = new FileReader();
+
+      reader.onload = (f) => {
+        fetch(`${url}?${qs}`, {
           method: "POST",
           mode: "no-cors",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify([...new Int8Array(f.target.result)]), // Upload file data as byte array
-        },
-        form.reset(),
-      )
-        .then((res) => res.json()) // Properly call .json()
-        .then((data) => {
-          toast.success("File Successfully Uploaded!");
         })
-        .catch((error) => toast.error(error));
-    };
+          .then(() => {
+            toast.success(`File '${file.name}' Successfully Uploaded!`);
+          })
+          .catch((error) =>
+            toast.error(`Failed to upload '${file.name}': ${error}`),
+          );
+      };
 
-    reader.readAsArrayBuffer(file); // Read file as array buffer
+      reader.readAsArrayBuffer(file); // Read file as array buffer
+    });
+
+    // Reset the form after all files are processed
+    console.log("lewat sini");
+    toast.success("File Successfully Uploaded!");
+    form.reset();
   };
 
   return (
@@ -74,8 +76,14 @@ export function SubmitDemo() {
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
-          <Label htmlFor="password">File</Label>
-          <Input placeholder="File goes here" type="file" name="file" />
+          <Label htmlFor="password">File <span className="text-red-600"> *</span></Label>
+          <Input
+            placeholder="File goes here"
+            type="file"
+            name="file"
+            multiple
+            required
+          />
         </LabelInputContainer>
 
         <button
