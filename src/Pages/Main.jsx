@@ -3,6 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { SubmitDemo } from "../components/SubmitForm";
 import axios from "axios";
 import AccessDenied from "../components/AccessDenied";
+import SpotlightPreview from "../components/SpotlightPreview";
 
 const Main = () => {
   const [error, setError] = useState(false); // Error state
@@ -34,10 +35,18 @@ const Main = () => {
 
   return (
     <>
-      <Toaster />
-      <div className="flex h-screen items-center justify-center">
-        {error ? <AccessDenied /> : <SubmitDemo />}
-      </div>
+      {error ? (
+        <div className="flex h-screen items-center justify-center">
+          <AccessDenied />
+        </div>
+      ) : (
+        <SpotlightPreview>
+          <Toaster />
+          <div className="flex h-screen items-center justify-center">
+            <SubmitDemo />
+          </div>
+        </SpotlightPreview>
+      )}
     </>
   );
 };
