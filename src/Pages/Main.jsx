@@ -6,12 +6,12 @@ import AccessDenied from "../components/AccessDenied";
 import SpotlightPreview from "../components/SpotlightPreview";
 
 const Main = () => {
-  const [error, setError] = useState(false); // Error state
-  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     axios
-      .get("https://drive-express-uploader-backend.vercel.app/")
+      .get("http://localhost:3000/")
       .then((response) => {
         console.log(response.data);
         setError(false);

@@ -6,11 +6,11 @@ import { fadeIn, textVariant } from "../utils/frameranimation";
 const AccessDenied = () => {
   return (
     <>
-      <div className="">
-        <motion.div initial = 'hidden' animate = 'show' variants={fadeIn('up','spring',0.8,0.9)}>
-          <img src={lock} alt="padlock" />
+      <div>
+        <motion.div initial = 'hidden' animate = 'show' variants={fadeIn('up','spring',0.8,0.9)} className="flex items-center justify-center">
+          <img src={lock} alt="padlock" className="h-[290px]" />
         </motion.div>
-        <motion.div initial='hidden' animate='show' variants={textVariant(0.5)} className="px-4">
+        <motion.div initial='hidden' animate='show' variants={textVariant(0.5)}>
           <h3 className="text-center text-3xl font-semibold text-white">
             Access Denied!
           </h3>

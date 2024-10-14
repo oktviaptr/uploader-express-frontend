@@ -20,9 +20,8 @@ export function SubmitDemo() {
     }
 
     const url =
-      "https://script.google.com/macros/s/AKfycby_dDBZAlviHnr4ATbL7qrqdLZG94tHL0RTQyTMYcGa6axV53nL-M5cAbMyHGDl9DAx/exec";
+      "https://script.google.com/macros/s/AKfycbyMAQxxlczcduxicFmsYqZg9_bAA8enHIiIwLpXeKTBMcL3XWsScwYO5PfgcF_E7Cs/exec";
 
-    // Loop through each file and upload them individually
     Array.from(files).forEach((file) => {
       let PostedName = filename !== "" ? filename : file.name;
 
@@ -53,8 +52,6 @@ export function SubmitDemo() {
       reader.readAsArrayBuffer(file); // Read file as array buffer
     });
 
-    // Reset the form after all files are processed
-    console.log("lewat sini");
     toast.success("File Successfully Uploaded!");
     form.reset();
   };
@@ -67,7 +64,7 @@ export function SubmitDemo() {
       className="mx-auto w-full max-w-md bg-white p-4 shadow-input dark:bg-black sm:rounded-lg md:rounded-2xl md:p-8"
     >
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
-        Ryan's Drive Uploader Express
+        Investindo's Uploader Express
       </h2>
       <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
         Drop file here to upload it to Google Drive
