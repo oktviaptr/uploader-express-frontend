@@ -6,6 +6,7 @@ import AccessDenied from "../components/AccessDenied";
 import SpotlightPreview from "../components/SpotlightPreview";
 import { LampContainer } from "../components/LampDemo";
 
+
 const Main = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -15,7 +16,7 @@ const Main = () => {
 
   useEffect(() => {
     axios
-      .get("https://backend-express-uploader.vercel.app/")
+      .get("http://localhost:3000/")
       .then((response) => {
         console.log(response.data);
         setError(false);
@@ -61,9 +62,10 @@ const Main = () => {
       ) : (
         <LampContainer>
           <Toaster />
-            <div className="w-full">
-            <SubmitDemo/>
-            </div>
+          <div className="w-full">
+            <SubmitDemo />
+            <div className="flex justify-end"></div>
+          </div>
         </LampContainer>
       )}
     </>

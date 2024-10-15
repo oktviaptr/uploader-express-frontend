@@ -4,15 +4,21 @@ import { Input } from "./Input";
 import { cn } from "../utils/motion";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
-import { fadeIn, textVariant } from "../utils/frameranimation";
-import { form } from "framer-motion/client";
+import { fadeIn } from "../utils/frameranimation";
+import { Switch } from "./ui/switch";
 
 export function SubmitDemo() {
   const [isExeFile, setIsExeFile] = useState(false);
+  const [isFolder, setIsFolder] = useState(false);
   const [isMobile, setIsMobile] = useState(
     window.matchMedia("(max-width: 500px)").matches,
   );
   let responsiveStyle = "w-full";
+  let styleToggle = "text-neutral-400";
+
+  if (isFolder) {
+    styleToggle = "text-neutral-800";
+  }
 
   useEffect(() => {
     const handleResize = () => {
@@ -123,19 +129,30 @@ export function SubmitDemo() {
             disabled={isExeFile}
           />
         </LabelInputContainer>
-        <LabelInputContainer className="mb-4">
-          <Label htmlFor="password">
-            File <span className="text-red-600"> *</span>
-          </Label>
-          <Input
-            placeholder="File goes here"
-            type="file"
-            name="file"
-            multiple
-            webkitdirectory
-          />
-        </LabelInputContainer>
-
+        {isFolder ? (
+          <LabelInputContainer className="mb-1">
+            <Label htmlFor="password">
+              Folder <span className="text-red-600"> *</span>
+            </Label>
+            <Input type="file" name="file" multiple='' webkitdirectory='' mozdirectory='' />
+          </LabelInputContainer>
+        ) : (
+          <LabelInputContainer className="mb-1">
+            <Label htmlFor="password">
+              File <span className="text-red-600"> *</span>
+            </Label>
+            <Input
+              placeholder="File goes here"
+              type="file"
+              name="file"
+              multiple
+            />
+          </LabelInputContainer>
+        )}
+        <div className="mb-4 flex items-center justify-end gap-2">
+          <Switch onClick={() => setIsFolder(!isFolder)} />
+          <Label className={`${styleToggle}`}>Folder</Label>
+        </div>
         <button
           className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit"
