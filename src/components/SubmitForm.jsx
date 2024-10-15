@@ -60,7 +60,7 @@ export function SubmitDemo() {
     <motion.div
       initial="hidden"
       animate="show"
-      variants={fadeIn("up", "spring", 0.4, 0.95)}
+      variants={fadeIn("up", "spring", 0.95, 1.4)}
       className="mx-auto w-full max-w-md bg-white p-4 shadow-input dark:bg-black sm:rounded-lg md:rounded-2xl md:p-8"
     >
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">

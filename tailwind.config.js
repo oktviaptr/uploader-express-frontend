@@ -30,6 +30,9 @@ module.exports = {
           },
         },
       },
+      colors: {
+        logo: "#24485e",
+      }
     },
   },
   plugins: [addVariablesForColors],

@@ -4,10 +4,14 @@ import { SubmitDemo } from "../components/SubmitForm";
 import axios from "axios";
 import AccessDenied from "../components/AccessDenied";
 import SpotlightPreview from "../components/SpotlightPreview";
+import { LampContainer } from "../components/LampDemo";
 
 const Main = () => {
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(
+    window.matchMedia("(max-width: 500px)").matches,
+  );
 
   useEffect(() => {
     axios
@@ -25,6 +29,14 @@ const Main = () => {
       });
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.matchMedia("(max-width: 500px)").matches);
+    };
+
+    window.addEventListener("resize", handleResize);
+  }, []);
+
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center">
@@ -39,13 +51,20 @@ const Main = () => {
         <div className="flex h-screen items-center justify-center">
           <AccessDenied />
         </div>
-      ) : (
+      ) : isMobile ? (
         <SpotlightPreview>
           <Toaster />
           <div className="flex h-screen items-center justify-center">
             <SubmitDemo />
           </div>
         </SpotlightPreview>
+      ) : (
+        <LampContainer>
+          <Toaster />
+            <div className="w-full">
+            <SubmitDemo/>
+            </div>
+        </LampContainer>
       )}
     </>
   );
