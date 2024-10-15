@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { Label } from "./Label";
 import { Input } from "./Input";
 import { cn } from "../utils/motion";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 import { fadeIn, textVariant } from "../utils/frameranimation";
+import { form } from "framer-motion/client";
 
 export function SubmitDemo() {
+  const [isExeFile, setIsExeFile] = useState(false);
+
+  const onChangeInput = (e) => {
+    const files = e.target.files;
+
+    const isExeOrMsi = Array.from(files).some(
+      (file) =>
+        file.name.endsWith(".exe") ||
+        file.name.endsWith(".msi") ||
+        file.name.endsWith(".dmg") ||
+        file.name.endsWith(".tar") ||
+        file.name.endsWith(".zip") ||
+        file.name.endsWith(".appx"),
+    );
+
+    setIsExeFile(isExeOrMsi);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -15,7 +34,7 @@ export function SubmitDemo() {
     const files = form.file.files; // Retrieve the uploaded files (can be multiples)
 
     if (!files.length) {
-      toast.error("Make sure to check your input");
+      toast.error("File cannot be empty!");
       return;
     }
 
@@ -69,7 +88,13 @@ export function SubmitDemo() {
       <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
         Drop file here to upload it to Google Drive
       </p>
-      <form className="my-6" onSubmit={handleSubmit} id="form-submit">
+      <p className="text-red-600 text-xs">No need to add filename for .exe, .msi, .zip, .tar</p>
+      <form
+        className="my-6"
+        onSubmit={handleSubmit}
+        onChange={onChangeInput}
+        id="form-submit"
+      >
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Filename</Label>
           <Input
@@ -77,6 +102,7 @@ export function SubmitDemo() {
             placeholder="Name for your file"
             type="text"
             name="filename"
+            disabled={isExeFile}
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
@@ -88,7 +114,6 @@ export function SubmitDemo() {
             type="file"
             name="file"
             multiple
-            required
           />
         </LabelInputContainer>
 
