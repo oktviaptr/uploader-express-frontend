@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Label } from "./Label";
 import { Input } from "./Input";
 import { cn } from "../utils/motion";
@@ -9,6 +9,22 @@ import { form } from "framer-motion/client";
 
 export function SubmitDemo() {
   const [isExeFile, setIsExeFile] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    window.matchMedia("(max-width: 500px)").matches,
+  );
+  let responsiveStyle = "w-full";
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.matchMedia("(max-width: 500px)").matches);
+    };
+
+    window.addEventListener("resize", handleResize);
+  }, []);
+
+  if (isMobile) {
+    responsiveStyle = " w-100";
+  }
 
   const onChangeInput = (e) => {
     const files = e.target.files;
@@ -80,7 +96,7 @@ export function SubmitDemo() {
       initial="hidden"
       animate="show"
       variants={fadeIn("up", "spring", 0.95, 1.4)}
-      className="mx-auto w-full max-w-md bg-white p-4 shadow-input dark:bg-black sm:rounded-lg md:rounded-2xl md:p-8"
+      className={`mx-auto ${responsiveStyle} max-w-md rounded-lg bg-white p-8 shadow-input dark:bg-black md:p-8`}
     >
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
         Investindo's Uploader Express
@@ -88,7 +104,9 @@ export function SubmitDemo() {
       <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
         Drop file here to upload it to Google Drive
       </p>
-      <p className="text-red-600 text-xs">No need to add filename for .exe, .msi, .zip, .tar</p>
+      <p className="text-xs text-red-600">
+        No need to add filename for .exe, .msi, .zip, .tar
+      </p>
       <form
         className="my-6"
         onSubmit={handleSubmit}
@@ -114,6 +132,7 @@ export function SubmitDemo() {
             type="file"
             name="file"
             multiple
+            webkitdirectory
           />
         </LabelInputContainer>
 
