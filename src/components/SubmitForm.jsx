@@ -48,6 +48,13 @@ export function SubmitDemo() {
     setIsExeFile(isExeOrMsi);
   };
 
+  const handleResetForm = (e) => {
+    e.preventDefault();
+    const form = document.getElementById("form-submit");
+    form.reset();
+    toast.success('Input cleared!')
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -92,8 +99,6 @@ export function SubmitDemo() {
 
       reader.readAsArrayBuffer(file); // Read file as array buffer
     });
-
-    toast.success("File Successfully Uploaded!");
     form.reset();
   };
 
@@ -102,7 +107,7 @@ export function SubmitDemo() {
       initial="hidden"
       animate="show"
       variants={fadeIn("up", "spring", 0.95, 1.4)}
-      className={`mx-auto ${responsiveStyle} max-w-md rounded-lg bg-white p-8 shadow-input dark:bg-black md:p-8`}
+      className={`mx-auto ${responsiveStyle} max-w-md rounded-lg bg-white px-7 pt-8 pb-2 shadow-input dark:bg-black`}
     >
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
         Investindo's Uploader Express
@@ -134,7 +139,13 @@ export function SubmitDemo() {
             <Label htmlFor="password">
               Folder <span className="text-red-600"> *</span>
             </Label>
-            <Input type="file" name="file" multiple='' webkitdirectory='' mozdirectory='' />
+            <Input
+              type="file"
+              name="file"
+              multiple=""
+              webkitdirectory=""
+              mozdirectory=""
+            />
           </LabelInputContainer>
         ) : (
           <LabelInputContainer className="mb-1">
@@ -149,9 +160,19 @@ export function SubmitDemo() {
             />
           </LabelInputContainer>
         )}
-        <div className="mb-4 flex items-center justify-end gap-2">
-          <Switch onClick={() => setIsFolder(!isFolder)} />
-          <Label className={`${styleToggle}`}>Folder</Label>
+        <div className="mb-5 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Switch onClick={() => setIsFolder(!isFolder)} />
+            <Label className={`${styleToggle}`}>Folder</Label>
+          </div>
+          <div>
+            <button
+              onClick={handleResetForm}
+              className="rounded-lg bg-red-700 px-3 py-1 text-sm text-white"
+            >
+              Clear
+            </button>
+          </div>
         </div>
         <button
           className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"

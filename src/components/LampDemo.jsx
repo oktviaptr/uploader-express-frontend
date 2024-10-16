@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { cn } from "../utils/motion";
 
 export function LampDemo({ children }) {
-  return <LampContainer >{children}</LampContainer>;
+  return <LampContainer>{children}</LampContainer>;
 }
 
 export const LampContainer = ({ children, className }) => {
@@ -73,7 +73,7 @@ export const LampContainer = ({ children, className }) => {
 
         <div className="absolute inset-auto w-full -translate-y-[12.5rem] bg-slate-950"></div>
       </div>
-      <div className="flex w-full -translate-y-80 items-center">{children}</div>
+      <div className="flex w-full -translate-y-60 items-center">{children}</div>
     </div>
   );
 };
