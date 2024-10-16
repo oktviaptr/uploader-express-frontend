@@ -114,7 +114,7 @@ export function SubmitDemo() {
       className={`mx-auto ${responsiveStyle} max-w-md rounded-lg bg-white px-7 pb-2 pt-8 shadow-input dark:bg-black`}
     >
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
-        Investindo's Uploader Express
+        Oktavia's Uploader Express
       </h2>
       <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
         Drop file here to upload it to Google Drive
