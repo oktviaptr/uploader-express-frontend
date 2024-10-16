@@ -51,8 +51,12 @@ export function SubmitDemo() {
   const handleResetForm = (e) => {
     e.preventDefault();
     const form = document.getElementById("form-submit");
-    form.reset();
-    toast.success('Input cleared!')
+    if (confirm("You're about to delete all the input. Continue?") == true) {
+      form.reset();
+      toast.success("Input cleared!");
+    } else {
+      return;
+    }
   };
 
   const handleSubmit = (e) => {
@@ -107,7 +111,7 @@ export function SubmitDemo() {
       initial="hidden"
       animate="show"
       variants={fadeIn("up", "spring", 0.95, 1.4)}
-      className={`mx-auto ${responsiveStyle} max-w-md rounded-lg bg-white px-7 pt-8 pb-2 shadow-input dark:bg-black`}
+      className={`mx-auto ${responsiveStyle} max-w-md rounded-lg bg-white px-7 pb-2 pt-8 shadow-input dark:bg-black`}
     >
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
         Investindo's Uploader Express
@@ -169,6 +173,7 @@ export function SubmitDemo() {
             <button
               onClick={handleResetForm}
               className="rounded-lg bg-red-700 px-3 py-1 text-sm text-white"
+              id="clear-btn"
             >
               Clear
             </button>
