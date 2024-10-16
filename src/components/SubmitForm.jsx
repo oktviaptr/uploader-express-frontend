@@ -72,7 +72,7 @@ export function SubmitDemo() {
     }
 
     const url =
-      "https://script.google.com/macros/s/AKfycbyMAQxxlczcduxicFmsYqZg9_bAA8enHIiIwLpXeKTBMcL3XWsScwYO5PfgcF_E7Cs/exec";
+      "https://script.google.com/macros/s/AKfycbwYhXcfmdiA_YYzuKq6z1eL77ysEKvSxcekXS6FQZpOFpIzIEnWYv4mU39bHSkt_7mA/exec";
 
     Array.from(files).forEach((file) => {
       let PostedName = filename !== "" ? filename : file.name;
